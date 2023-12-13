@@ -4,6 +4,10 @@ from passlib.hash import sha256_crypt
 import sqlite3
 import secrets
 import markdown
+import bleach
+
+allowed_tags = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'a', 'strong', 'em', 'b', 'i', 'img']
+allowed_attributes = {'a': ['href', 'title'], 'img':['src', 'alt']}
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secrets.token_hex(32)
@@ -66,7 +70,7 @@ def register():
         user = user_loader(username)
 
         if user:
-            return render_template('register.html', error = 'This user already exists')
+            return render_template('register.html', error = 'Username taken')
         
         with sqlite3.connect(DATABASE) as connection:
             cursor = connection.cursor()
@@ -104,16 +108,17 @@ def create_note():
         title = request.form['title']
         note = request.form.get("content","")
         rendered = markdown.markdown(note)
+        clean_rendered = bleach.clean(rendered, tags=allowed_tags, attributes=allowed_attributes)
         username = current_user.id
         is_shared = 1 if request.form['option'] == 'shared' else 0
         with sqlite3.connect(DATABASE) as connection:
             cursor = connection.cursor()
-            cursor.execute("INSERT INTO notes (title, username, content, is_shared) VALUES (?,?,?,?)", (title, username, rendered, is_shared))
+            cursor.execute("INSERT INTO notes (title, username, content, is_shared) VALUES (?,?,?,?)", (title, username, clean_rendered, is_shared))
             connection.commit()
 
         if is_shared == 1:
-            return render_template("note.html", rendered=rendered, is_shared=1, title=title)
-        return render_template("note.html", rendered=rendered, title=title)
+            return render_template("note.html", rendered=clean_rendered, is_shared=1, title=title)
+        return render_template("note.html", rendered=clean_rendered, title=title)
 
     return render_template('create_note.html')
 

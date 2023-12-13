@@ -10,7 +10,7 @@
         <p style="color: blue; font-size: large;">This note has been shared with others.</p>
     {% endif %}
     <h1>Note: {{title}}</h1>
-    {{rendered}} <br>
+    {{rendered|safe}} <br>
     <a href="{{ url_for('home') }}">Home</a>
 </body>
 </html>
