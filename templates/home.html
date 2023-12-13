@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>Hello {{name}}</h1>
+    <p><a href="{{ url_for('create_note') }}">Create a note</a>.</p>
+    <p><a href="{{ url_for('logout') }}">Logout</a>.</p>
+    {% if notes|length > 0 %}
+        <h1> Your notes: </h1>
+        <ul>
+        {% for note in notes %}
+            <li><a href="{{ url_for('note', note_id=note.0) }}"> Note: {{ note.2 }} {% if note.1 == 1 %} <b>Shared</b> {% endif%}</a></li>
+        {% endfor %}
+        </ul>
+
+    {% endif %}
+    {% if shared_notes|length > 0 %}
+        <h1> Public notes: </h1>
+        <ul>
+        {% for note in shared_notes %}
+            <li><a href="{{ url_for('note', note_id=note.0) }}"> Note {{ note.2 }}, shared by {{note.1}}</a></li>
+        {% endfor %}
+        </ul>
+
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Note</title>
+</head>
+<body>
+    <h1>Create Note</h1>
+    <form method="post" action="{{ url_for('create_note') }}">
+        <label for="title">Title:</label><br>
+        <textarea id="title" name="title" rows="1" cols="40" required></textarea><br>
+        <label for="content">Note Content:</label> <br>
+        <textarea id="content" name="content" rows="4" cols="50" required></textarea><br>
+        <label>Note type:</label><br>
+        <label for="regular"><input type="radio" id="regular", name="option", value="regular" required checked> Regular note</label> <br>
+        <label for="shared"><input type="radio" id="shared", name="option", value="shared" required> Shared note</label> <br>
+        <label for="encrypted"><input type="radio" id="encrypted", name="option", value="encrypted" required> Encrypted note</label> <br>
+        <input type="submit" value="Create Note">
+    </form>
+</body>
+</html>
