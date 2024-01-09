@@ -9,7 +9,8 @@ c.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT,
-                password TEXT
+                password TEXT,
+                otp_secret TEXT
             );
           ''')
 
@@ -20,6 +21,9 @@ c.execute('''
                 username TEXT,
                 content TEXT,
                 is_shared INTEGER,
+                encrypted_password TEXT,
+                encrypted_key TEXT,
+                salt TEXT,
                 FOREIGN KEY (username) REFERENCES users(username)
             )
           ''')

@@ -1,0 +1,11 @@
+gunicorn
+flask
+qrcode
+pyotp
+markdown
+bleach
+bcrypt
+flask_limiter
+flask_login
+cryptography
+redis

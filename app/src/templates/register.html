@@ -15,8 +15,13 @@
         <input type="text" id="username" name="username" required><br>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br>
-        <input type="submit" value="Register">
+        <label for="rep_password">Confirm password:</label>
+        <input type="password" id="rep_password" name="rep_password" required><br>
+        <p style="color: red; display: none;" id="strength_err"></p>
+        <p style="color: red; display: none;" id="match_err">Passwords don't match</p>
+        <input type="submit" id="submit" value="Register">
     </form>
     <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a>.</p>
+    <script type="text/javascript" src="{{ url_for('static',filename='password_control.js') }}"></script>
 </body>
 </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two factor authentication</title>
+</head>
+<body>
+    {% if register %}
+        <p>Scan this in google authenticator app</p>
+        <img src="data:image/png;base64,{{register}}">
+        <a href="{{ url_for('login') }}"> Done </a>
+    {% endif %}
+    {% if login %}
+        {%if error%}
+            <p style="color: red;">{{error}}</p>
+        {% endif%}
+        <form method="post" action="{{ url_for('fa2') }}">
+            <label for="otp_code">Provide your one time code from Google authenticator app</label><br>
+            <input type="tel" id="otp_code" name="otp_code" pattern="[0-9]{6}" placeholder="000000" required/>
+            <input type="submit" value="Log-in">
+        </form>
+    {% endif %}
+
+</body>
+</html>

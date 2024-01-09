@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note</title>
+</head>
+<body></body>
+    {% if error %}
+        <p style="color: red; font-size: large;">{{error}}</p>
+    {% endif %}
+    {% if is_shared %}
+        <p style="color: blue; font-size: large;">This note has been shared with others.</p>
+    {% endif %}
+    <h1>Note: {{title}}</h1>
+    {{rendered|safe}} <br>
+    {% if is_encrypted %}
+        <form method="post" action="{{ url_for('note', note_id=note_id) }}">
+            <label for="encryption_passsword">Password:</label>
+            <input type="password" id="encryption_passsword" name="encryption_passsword" required><br>
+            <input type="submit" value="Decrypt">
+        </form>
+    {% endif %}
+    <a href="{{ url_for('home') }}">Home</a>
+</body>
+</html>
