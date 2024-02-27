@@ -11,6 +11,7 @@ Web application to create, store, encrypt and share notes that allow basic level
 ### Setup & Running the app
 After cloning repository and running docker on your PC, in the root directory run:
 ```
+$ python3 app/create_database.py
 $ docker-compose up
 ```
 After that the app should be available at localhost:443 or localhost:80
