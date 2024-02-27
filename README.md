@@ -14,4 +14,5 @@ After cloning repository and running docker on your PC, in the root directory ru
 $ python3 app/create_database.py
 $ docker-compose up
 ```
-After that the app should be available at localhost:443 or localhost:80
+After that the app should be available at 
+[http://localhost:443 ](https://localhost:443)
